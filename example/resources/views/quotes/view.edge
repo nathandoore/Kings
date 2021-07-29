@@ -1,0 +1,22 @@
+@layout('layouts.main')
+
+@section('title')
+  KingsBridge - View your Quote
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+
+  <div class="job-container">  
+    <h1>View Quote</h1>
+          <ul>
+              <li><label for="title">{{ quote.title }} </label></li>
+              <li>{{ quote.description }} </li>
+              <li>{{ quote.type }} </li>
+              <li>{{ quote.price }} </li>
+          </ul>
+    </div>
+@endsection

@@ -1,0 +1,23 @@
+@layout('layouts.main')
+
+@section('title')
+KingsBridge - Quotes
+@endsection
+
+@section('content')
+    <h1> Home </h1><h3> All Quotes </h3>
+    <div class="job-container">
+        @each(quote in quotes)
+    <div class="blank"></div>
+    <div class="job-info">
+
+        <h3>{{ quote.title }}</h3>
+        <p> {{ quote.description }}</p>
+        <p> {{ quote.type }}</p>
+        <p> {{ quote.price }}</p>
+
+    <a href="{{ route('QuoteController.view', { id: quote.id }) }}">View</a>
+    </div>
+    @endeach
+</div>
+@endsection

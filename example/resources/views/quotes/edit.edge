@@ -1,0 +1,56 @@
+@layout('layouts.main')
+
+@section('title')
+KingsBridge - Edit your Quote
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <h1>Edit Quote</h1>
+
+
+  <div class="job-container">
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('QuoteController.update', { id: quote.id }) }}" method="POST">
+          {{ csrfField() }}
+  
+          <label for="title">quote Title</label>
+          <input type="text" name="title" value="{{ quote.title }}">
+          @if(hasErrorFor('title'))
+              <span>
+                  {{ getErrorFor('title') }}
+              </span>
+          @endif
+  
+          <label for="description">Description</label>
+          <input type="text" name="description" value="{{ quote.description }}">
+          @if(hasErrorFor('description'))
+              <span>
+                  {{ getErrorFor('description') }}
+              </span>
+          @endif
+
+          <label for="type">Type</label>
+          <select type="text" name="type">
+            <option value="freelance">Freelance</option>
+            <option value="corporate">Corportate</option>
+            <option value="retail">Retail</option>
+          </select>
+
+          <label for="price">Price</label>
+          <input type="number" name="price"  value="{{ quote.price }}">
+          @if(hasErrorFor('price'))
+              <span>
+                  {{ getErrorFor('price') }}
+              </span>
+          @endif
+  
+          <button type="submit">Update quote</button><br>
+        </form>
+    </div>
+@endsection

@@ -1,0 +1,83 @@
+@layout('layouts.main')
+
+@section('title')
+KingsBridge - Post your Quote
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <div class="job-container">
+    <h1>Post a quote</h1>
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('QuoteController.create') }}" method="POST">
+          {{ csrfField() }}
+  
+          <label for="title">Quote Title</label>
+          <input type="text" name="title" placeholder="First Business Quote" value="{{ old('title', '') }}">
+          @if(hasErrorFor('title'))
+              <span>
+                  {{ getErrorFor('title') }}
+              </span>
+          @endif
+  
+          <label for="description">Description</label>
+          <input type="text" name="description" value="{{ old('description', '') }}">
+          @if(hasErrorFor('description'))
+              <span>
+                  {{ getErrorFor('description') }}
+              </span>
+          @endif
+
+          <label for="type">Type</label>
+          <select type="text" name="type">
+            <option value="" selected disabled hidden></option>
+            <option value="freelance">Freelance</option>
+            <option value="corporate">Corportate</option>
+            <option value="retail">Retail</option>
+          </select>
+          @if(hasErrorFor('description'))
+              <span>
+                  {{ getErrorFor('type') }}
+              </span>
+          @endif
+
+          <label for="price">Price</label>
+          <input type="number" name="price" autoComplete="off" placeholder="£.." value="{{ old('price', '') }}">
+          @if(hasErrorFor('price'))
+              <span>
+                  {{ getErrorFor('price') }}
+              </span>
+          @endif
+  
+          <button type="submit">Submit a Quote</button>
+        </form>
+    </div>
+@if(quotes.length)
+<h2>My quotes</h2>
+
+  @each(quote in quotes)
+  <div class="job-container2">
+    <div class="blank"></div>
+    <div class="job-info">
+      <h3><a href="/">{{ quote.title }}</a></h3>
+      <p>{{ quote.description }}</p>
+      <ul>
+          <li><a href="{{ route('QuoteController.view', { id: quote.id }) }}">View</a></li>
+          <li><a href="{{ route('QuoteController.delete', { id: quote.id }) }}">Delete</a></li>
+          <li><a href="{{ route('QuoteController.edit', { id: quote.id }) }}">Edit</a></li>
+      </ul>
+    </div>
+  </div>
+  @endeach
+  @endif
+@endsection
+Next, let's create a relationship between the user and jobs. We do this by opening up the app/Models/User.js file and class model, paste:
+
+  jobs() {
+    return this.hasMany('App/Models/Job');
+  }

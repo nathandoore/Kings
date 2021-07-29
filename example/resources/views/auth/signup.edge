@@ -1,0 +1,44 @@
+@layout('layouts.main')
+
+@section('title')
+KingsBridge
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+
+@endsection
+
+@section('content')
+    <div class="job-container">
+        <h1> Join Now</h1>
+      <form action="{{ route('UserController.create') }}" method="POST">
+
+        {{ csrfField() }}
+
+        <label for="username">Username: </label>
+        <input type="text" name="username" value="{{ old('username', '') }}"/>
+        @if(hasErrorFor('username'))
+            <span>
+                {{  getErrorFor('username') }}
+            </span>
+        @endif
+        <label for="email">Email: </label>
+        <input type="text" name="email" value="{{ old('email', '') }}"/>
+        @if(hasErrorFor('email'))
+            <span>
+                {{  getErrorFor('email') }}
+            </span>
+            @endif
+        <label for="password">Password: </label>
+        <input type="password" name="password" value="{{ old('password', '') }}"/>
+        @if(hasErrorFor('password'))
+            <span>
+                {{  getErrorFor('password') }}
+            </span>
+        @endif
+
+        <button type="submit">submit</button>
+      </form>
+</div>
+@endsection
